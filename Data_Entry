@@ -1,0 +1,81 @@
+
+import re
+import csv
+
+l_patter = '^[A-Za-z]+$'
+n_patter = '^[0-9]+$'
+
+print("Welcome !!!!")
+
+start = str(input("For Read, Press (R) and for Write Press (W) : "))
+low_start = start.lower()
+entr_bool = True
+
+if low_start == "w":
+
+    while entr_bool:
+
+            range_wl = str(input("How Many Entries Want to Make ( 1 - 10 Max): "))
+            if re.fullmatch(n_patter, (range_wl)):
+                    if int(range_wl) > 10:
+                        range_wl = 10
+                        print ("Default Max. Value = 10")
+                        
+                        break
+                    else :        
+                        print(f"You'll introduce ({range_wl}) Entries")
+                        break
+
+            else: print("Enter a Valid Number !!")
+            continue 
+   
+    for entrys in range(int(range_wl)):
+
+        list_add = []
+        k_going = True
+
+        while k_going:
+
+            firt_name = str(input("Enter Firt Name: "))
+            if re.fullmatch(l_patter, firt_name):
+                list_add.append(firt_name)
+                break
+
+            else:
+                print("Please Enter a Valid Name !!")
+            continue
+
+        while k_going:
+            last_name = str(input("Enter Last Name: "))
+            if re.fullmatch(l_patter, last_name):
+                list_add.append(last_name)
+                break
+
+            else:
+                print("Please Enter a Valid Last Name !!")
+            continue
+
+        while k_going:
+
+            age = str(input("Enter Age: "))
+            if re.fullmatch(n_patter, age):
+                list_add.append(age)
+
+                with open('DB_CSV.csv', newline='\n', mode='a+') as db:
+                    Writer = csv.writer(db, dialect='excel', delimiter=';', lineterminator='\n')
+                    Writer.writerow(list_add)
+                print("Added Successfully !!")
+                break
+
+
+            else:
+                print("Please Enter a Valid Age !!")
+            continue
+
+        
+elif low_start == "r":
+    with open('DB_CSV.csv', newline='\n', mode='r') as db:
+        Reader = csv.reader(db, dialect='excel', delimiter=';', lineterminator='\n')
+
+        for rows in Reader:
+            print(rows)  
