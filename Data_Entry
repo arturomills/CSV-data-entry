@@ -1,7 +1,8 @@
+from dataclasses import replace
 import re
 import csv
 
-l_patter = '^[A-Za-z]+$'
+l_patter = '^[A-Z a-z]+$'
 n_patter = '^[0-9]+$'
 
 print("Welcome !!!!")
@@ -31,6 +32,7 @@ if low_start == "w":
     for entrys in range(int(range_wl)):
 
         list_add = []
+        combinated = []
         k_going = True
 
         while k_going:
@@ -60,12 +62,16 @@ if low_start == "w":
             if re.fullmatch(n_patter, age):
                 list_add.append(age)
 
-                with open('DB_CSV.csv', newline='\n', mode='a+') as db:
-                    Writer = csv.writer(db, dialect='excel', delimiter=';', lineterminator='\n')
-                    Writer.writerow(list_add)
-                print("Added Successfully !!")
-                break
-
+                with open('DB_CSV.csv', newline='\n', mode='r+') as db:
+                    Writer = csv.writer(db, dialect='excel', delimiter=',', lineterminator='\n')
+                    Reader = csv.reader(db)
+                    
+                    if list_add not in Reader:
+                        Writer.writerow(list_add)
+                        print("Added Successfully !!")
+                    else: print("Entry Already Exist, Please Try Again!!!")                                  
+                     
+                    break
 
             else:
                 print("Please Enter a Valid Age !!")
@@ -73,8 +79,10 @@ if low_start == "w":
 
         
 elif low_start == "r":
+    sep = ","
     with open('DB_CSV.csv', newline='\n', mode='r') as db:
         Reader = csv.reader(db, dialect='excel', delimiter=';', lineterminator='\n')
 
         for rows in Reader:
-            print(rows)  
+            print(rows[0])
+
