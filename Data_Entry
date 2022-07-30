@@ -18,8 +18,7 @@ if lower_start == "w":
             if re.fullmatch(num_patter, (range_wl)):
                     if int(range_wl) > 10:
                         range_wl = 10
-                        print ("Default Max. Value = 10")
-                        
+                        print ("Default Max. Value = 10")                        
                         break
                     else :        
                         print(f"You'll introduce ({range_wl}) Entries")
@@ -36,8 +35,8 @@ if lower_start == "w":
         while k_going:
 
             firt_name = str(input("Enter Firt Name: "))
-            if re.fullmatch(lett_patter, firt_name):
-                list_add.append(firt_name)
+            if re.fullmatch(lett_patter, firt_name):                
+                list_add.append(firt_name.capitalize())
                 break
 
             else:
@@ -46,8 +45,8 @@ if lower_start == "w":
 
         while k_going:
             last_name = str(input("Enter Last Name: "))
-            if re.fullmatch(lett_patter, last_name):
-                list_add.append(last_name)
+            if re.fullmatch(lett_patter, last_name):                
+                list_add.append(last_name.capitalize())
                 break
 
             else:
