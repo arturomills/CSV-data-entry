@@ -92,6 +92,6 @@ elif lower_start == "e":
         print("File Already Clear!")
 
 
-else: print("Please Select a Valid Option (W), (R) or (E)")
+else: print("Please Select a Valid Option (W), (R) or (E) ")
 
 
