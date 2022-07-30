@@ -1,22 +1,21 @@
-from dataclasses import replace
 import re
 import csv
 
-l_patter = '^[A-Z a-z]+$'
-n_patter = '^[0-9]+$'
+lett_patter = '^[A-Za-z]+$'
+num_patter = '^[0-9]+$'
 
 print("Welcome !!!!")
 
-start = str(input("For Read, Press (R) and for Write Press (W) : "))
-low_start = start.lower()
+start = str(input("For Read Press (R), for Write Press (W) and for Erase Press (E): "))
+lower_start = start.lower()
 entr_bool = True
 
-if low_start == "w":
+if lower_start == "w":
 
     while entr_bool:
 
             range_wl = str(input("How Many Entries Want to Make ( 1 - 10 Max): "))
-            if re.fullmatch(n_patter, (range_wl)):
+            if re.fullmatch(num_patter, (range_wl)):
                     if int(range_wl) > 10:
                         range_wl = 10
                         print ("Default Max. Value = 10")
@@ -32,13 +31,12 @@ if low_start == "w":
     for entrys in range(int(range_wl)):
 
         list_add = []
-        combinated = []
         k_going = True
 
         while k_going:
 
             firt_name = str(input("Enter Firt Name: "))
-            if re.fullmatch(l_patter, firt_name):
+            if re.fullmatch(lett_patter, firt_name):
                 list_add.append(firt_name)
                 break
 
@@ -48,7 +46,7 @@ if low_start == "w":
 
         while k_going:
             last_name = str(input("Enter Last Name: "))
-            if re.fullmatch(l_patter, last_name):
+            if re.fullmatch(lett_patter, last_name):
                 list_add.append(last_name)
                 break
 
@@ -59,7 +57,7 @@ if low_start == "w":
         while k_going:
 
             age = str(input("Enter Age: "))
-            if re.fullmatch(n_patter, age):
+            if re.fullmatch(num_patter, age):
                 list_add.append(age)
 
                 with open('DB_CSV.csv', newline='\n', mode='r+') as db:
@@ -78,11 +76,22 @@ if low_start == "w":
             continue
 
         
-elif low_start == "r":
+elif lower_start == "r":
     sep = ","
     with open('DB_CSV.csv', newline='\n', mode='r') as db:
-        Reader = csv.reader(db, dialect='excel', delimiter=';', lineterminator='\n')
+        Reader = csv.reader(db, dialect='excel', delimiter=',', lineterminator='\n')
 
         for rows in Reader:
-            print(rows[0])
+            if rows:
+           
+                print(f' Name: {rows[0]} - Last Name: {rows[1]} - Age: {rows[2]}' )
+
+elif lower_start == "e":
+    with open('DB_CSV.csv', newline='\n', mode='w') as db:
+        Eraser = csv.writer(db, dialect='excel', delimiter=',', lineterminator='\n')
+        print("File Already Clear!")
+
+
+else: print("Please Select a Valid Option (W), (R) or (E)")
+
 
